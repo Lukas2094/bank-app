@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "joao@gmail.com",
+      "password": "123456",
+      "name": "João Silva",
+      "balance": 5010,
+      "transactions": [
+        {
+          "id": 1,
+          "type": "PIX",
+          "value": -150,
+          "date": "2023-05-10T14:30:00Z",
+          "recipient": "Maria Souza"
+        },
+        {
+          "id": 1743992502707,
+          "type": "DEPOSITO",
+          "value": 10,
+          "date": "2025-04-07T02:21:42.707Z",
+          "description": "Depósito realizado"
+        }
+      ]
+    }
+  ],
+  "register": [
+    {
+      "id": "369d",
+      "name": "Lucas Santos da Silva",
+      "email": "lukas2094@gmail.com",
+      "password": "200594"
+    }
+  ]
+}
