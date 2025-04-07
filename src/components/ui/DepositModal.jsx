@@ -109,9 +109,18 @@ const DepositModal = ({ onClose }) => {
                 {depositType === 'pix' ? 'PIX Copia e Cola' : 'Código de Barras'}
               </label>
               <textarea
-                className="w-full bg-gray-100 p-3 mt-1 border border-blue-100 hover:border-blue-100 focus:border-blue-100 focus:outline-none transition rounded-md text-sm"
+                className="w-full bg-gray-100 p-3 mt-1 border border-blue-100 hover:border-blue-100 focus:border-blue-100 focus:outline-none transition rounded-md text-sm cursor-pointer"
                 readOnly
                 value={generatedCode}
+                onClick={() => {
+                  navigator.clipboard.writeText(generatedCode)
+                    .then(() => {
+                      alert('Código copiado para a área de transferência!');
+                    })
+                    .catch(() => {
+                      alert('Erro ao copiar o código.');
+                    });
+                }}
               />
             </div>
           )}
