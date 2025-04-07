@@ -71,6 +71,24 @@
           "date": "2025-04-07T20:49:52.907Z",
           "sender": "Lucas Silva",
           "description": "PIX recebido de Lucas Silva"
+        },
+        {
+          "id": 1744059190798,
+          "type": "PIX",
+          "value": -4000,
+          "date": "2025-04-07T20:53:10.798Z",
+          "recipient": "Lucas Silva",
+          "description": "PIX para Lucas Silva",
+          "pixKey": "lucas.sdasilva@hotmail.com",
+          "pixType": "Email"
+        },
+        {
+          "id": 1744059190822,
+          "type": "RECEBIDO",
+          "value": 4000,
+          "date": "2025-04-07T20:53:10.822Z",
+          "sender": "Lucas Silva",
+          "description": "PIX recebido de Lucas Silva"
         }
       ]
     },

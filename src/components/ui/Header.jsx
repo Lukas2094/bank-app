@@ -83,7 +83,7 @@ const Headers = ({ isExpanded, setIsExpanded }) => {
                             <span className={`ml-3 ${isExpanded || isMobile ? 'inline' : 'hidden'}`}>Transferir</span>
                         </button>
 
-                        <div className="mt-auto px-4 py-4 border-t border-blue-800 flex items-center justify-between">
+                        <div className={`${!isMobile ? 'mt-auto' : ''} px-4 py-4 border-t border-blue-800 flex items-center justify-between`}>
                             <div className={`${isExpanded || isMobile ? 'block' : 'hidden'} text-md`}>
                                 {showUserName && <span>{user?.name}</span>}
                             </div>
