@@ -105,7 +105,6 @@ export const AuthProvider = ({ children }) => {
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
 
-      // Retorna o código simulado pro front
       return {
         paymentCode
       };
