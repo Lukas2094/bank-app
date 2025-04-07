@@ -39,7 +39,6 @@ const TransactionForm = ({ type, currentBalance }) => {
       });
       
       setSuccess('Transação realizada com sucesso!');
-      // Aqui você pode atualizar o saldo do usuário ou redirecionar
     } catch (err) {
       if (err.response?.status === 401) {
         logout();

@@ -10,7 +10,7 @@ const TransactionHistory = ({ transactions = [] }) => {
 
   const handleFilter = (type) => {
     setFilter(type);
-    setCurrentPage(1); // resetar pra primeira página sempre
+    setCurrentPage(1);
   };
 
   const getTransactionIcon = (type, value) => {
@@ -82,7 +82,7 @@ const TransactionHistory = ({ transactions = [] }) => {
           Nenhuma transação encontrada
         </div>
       ) : (
-        <div className="max-h-80 overflow-y-auto">
+          <div className="max-h-80 overflow-y-auto custom-scrollbar">
           <ul className="divide-y divide-gray-100">
             {paginatedTransactions.map((transaction) => {
               const { icon, bgColor } = getTransactionIcon(transaction.type, transaction.value);
@@ -121,7 +121,6 @@ const TransactionHistory = ({ transactions = [] }) => {
         </div>
       )}
 
-      {/* Paginação */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center p-4 space-x-2">
           <button

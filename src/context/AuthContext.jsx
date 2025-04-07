@@ -44,22 +44,31 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Email já cadastrado');
       }
 
-      const response = await api.post('/users', {
+      const id = Date.now().toString();
+      const agency = Math.floor(1000 + Math.random() * 9000).toString(); 
+      const account = Math.floor(100000 + Math.random() * 900000).toString();
+
+      const newUser = {
         ...userData,
+        id,
         balance: 0,
         transactions: [],
-        id: Date.now() 
-      });
-      
+        agency,
+        account
+      };
+
+      const response = await api.post('/users', newUser);
+
       localStorage.setItem('user', JSON.stringify(response.data));
       setUser(response.data);
       navigate('/');
-      
+
       return response.data;
     } catch (error) {
       throw error;
     }
   };
+
 
   const logout = () => {
     localStorage.removeItem('user');
@@ -148,7 +157,6 @@ export const AuthProvider = ({ children }) => {
         });
       }
 
-      // Atualiza o usuário no contexto
       const updatedUser = userResponse.data;
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));

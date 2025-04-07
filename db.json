@@ -3,11 +3,11 @@
     {
       "id": "2",
       "email": "lucas.sdasilva@hotmail.com",
-      "password": "123456",
+      "password": "272727",
       "name": "Lucas Silva",
       "agency": "0001",
       "account": "12345-6",
-      "balance": 6310,
+      "balance": 11310,
       "transactions": [
         {
           "id": 1743992502707,
@@ -104,16 +104,24 @@
           "value": 550,
           "date": "2025-04-07T15:51:47.934Z",
           "description": "Depósito realizado"
+        },
+        {
+          "id": 1744052372065,
+          "type": "RECEBIDO",
+          "value": 5000,
+          "date": "2025-04-07T18:59:32.065Z",
+          "sender": "Lucas Santos",
+          "description": "PIX recebido de Lucas Santos"
         }
       ]
     }
   ],
   "register": [
     {
-      "id": "369d",
+      "id": "2",
       "name": "Lucas Santos da Silva",
-      "email": "lukas2094@gmail.com",
-      "password": "200594"
+      "email": "lucas.sdasilva@hotmail.com",
+      "password": "272727"
     }
   ]
 }

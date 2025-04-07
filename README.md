@@ -9,13 +9,11 @@ npm install
 
 3 após a instalação das dependencias execute os comandos no terminal para rodar o projeto em servidor e front 
 
-npm run server
-npm start 
+npm run preview
 
 ou
 
-npm run server
 npm run build 
-npm start
+npm run preview
 
 4 Aproveite a navegação no projeto!

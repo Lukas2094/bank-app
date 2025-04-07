@@ -11,11 +11,11 @@ const TransferModal = ({ onClose }) => {
     amount: '',
     recipientName: '',
     transactionPassword: '',
-    // TED fields
+    // TED
     bank: '',
     agency: '',
     account: '',
-    // PIX fields
+    // PIX
     pixKey: '',
     pixType: ''
   });
