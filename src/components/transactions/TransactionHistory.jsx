@@ -38,7 +38,13 @@ const TransactionHistory = ({ transactions = [] }) => {
   };
 
   const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
     return new Date(dateString).toLocaleDateString('pt-BR', options);
   };
 
@@ -51,9 +57,13 @@ const TransactionHistory = ({ transactions = [] }) => {
     return true;
   });
 
-  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
+  const sortedTransactions = [...filteredTransactions].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
-  const paginatedTransactions = filteredTransactions.slice(
+  const totalPages = Math.ceil(sortedTransactions.length / ITEMS_PER_PAGE);
+
+  const paginatedTransactions = sortedTransactions.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
@@ -62,7 +72,7 @@ const TransactionHistory = ({ transactions = [] }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="p-4 border-b border-gray-100 flex justify-between items-center">
         <h3 className="font-semibold text-gray-800">Histórico de Transações</h3>
-        <div className="space-x-2">
+        <div className="space-x-2 overflow-x-scroll flex flex-nowrap p-5">
           {['TODOS', 'PIX', 'TED', 'ENTRADAS', 'SAIDAS'].map((type) => (
             <button
               key={type}
@@ -82,7 +92,7 @@ const TransactionHistory = ({ transactions = [] }) => {
           Nenhuma transação encontrada
         </div>
       ) : (
-          <div className="max-h-80 overflow-y-auto custom-scrollbar">
+        <div className="max-h-80 overflow-y-auto custom-scrollbar">
           <ul className="divide-y divide-gray-100">
             {paginatedTransactions.map((transaction) => {
               const { icon, bgColor } = getTransactionIcon(transaction.type, transaction.value);

@@ -30,7 +30,7 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className='w-full h-full flex items-center justify-center rounded-lg'>
-        <img src="\img\magnum.png" alt="magnum" className='w-full rounded-lg h-[200px] object-none' />
+        <img src="\img\magnum.png" alt="magnum" className='w-28 rounded-lg h-28 md:object-none md:!w-full md:h-[200px]' />
       </div>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">        
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -42,7 +42,7 @@ const LoginPage = () => {
             onClick={() => navigate('/register')}
             className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none"
           >
-            crie uma nova conta
+            Abra sua conta
           </button>
         </p>
       </div>

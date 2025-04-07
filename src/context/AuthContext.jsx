@@ -78,10 +78,14 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  const deposit = async (amount) => {
+  const deposit = async (amount, type = 'pix') => {
     try {
       if (!user) throw new Error('Usuário não autenticado');
       if (amount <= 0) throw new Error('Valor inválido');
+
+      const paymentCode = type === 'pix'
+        ? `pix-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`
+        : `boleto-${Date.now()}-${Math.floor(Math.random() * 1000000000)}`;
 
       const response = await api.patch(`/users/${user.id}`, {
         balance: user.balance + amount,
@@ -92,7 +96,7 @@ export const AuthProvider = ({ children }) => {
             type: 'DEPOSITO',
             value: amount,
             date: new Date().toISOString(),
-            description: 'Depósito realizado'
+            description: type === 'pix' ? 'Depósito via PIX' : 'Depósito via Boleto',
           }
         ]
       });
@@ -101,11 +105,15 @@ export const AuthProvider = ({ children }) => {
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
 
-      return updatedUser;
+      // Retorna o código simulado pro front
+      return {
+        paymentCode
+      };
     } catch (error) {
       throw error;
     }
   };
+
 
   const transfer = async (transferData) => {
     try {

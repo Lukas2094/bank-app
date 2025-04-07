@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaWallet, FaMoneyBillWave, FaExchangeAlt } from 'react-icons/fa';
+import { FaWallet, FaMoneyBillWave, FaExchangeAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import DepositModal from './DepositModal';
 import TransferModal from './TransferModal';
 import { useAuth } from '../../context/AuthContext';
@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 const BalanceCard = ({ balance }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
+  const [isBlurred, setIsBlurred] = useState(true);
   const { user } = useAuth();
 
   return (
@@ -18,12 +19,20 @@ const BalanceCard = ({ balance }) => {
           </div>
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Saldo Disponível</h3>
-            <p className="text-2xl font-bold text-gray-800">
-              {balance?.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              })}
-            </p>
+            <div className="flex items-center space-x-2">
+              <p
+                className={`text-2xl font-bold text-gray-800 transition duration-200 ${isBlurred ? 'blur-sm select-none' : ''
+                  }`}
+              >
+                {balance?.toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              </p>
+              <button onClick={() => setIsBlurred(!isBlurred)} className="text-gray-500 hover:text-gray-800">
+                {isBlurred ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
         </div>
 
