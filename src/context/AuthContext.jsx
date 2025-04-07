@@ -13,9 +13,8 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-      api.defaults.headers.common['X-Auth-User'] = storedUser; 
     }
-    setLoading(false);
+    setLoading(false); 
   }, []);
 
   const login = async (email, password) => {
@@ -27,10 +26,9 @@ export const AuthProvider = ({ children }) => {
       }
       
       const userData = response.data[0];
-      
+      setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       api.defaults.headers.common['X-Auth-User'] = JSON.stringify(userData);
-      setUser(userData);
       navigate('/');
       
       return userData;
@@ -109,7 +107,7 @@ export const AuthProvider = ({ children }) => {
       const userResponse = await api.patch(`/users/${user.id}`, {
         balance: user.balance - transferData.amount,
         transactions: [
-          ...user.transactions,
+          ...(user.transactions || []),
           {
             id: Date.now(),
             type: transferData.type,
@@ -130,12 +128,14 @@ export const AuthProvider = ({ children }) => {
         ]
       });
 
-
       if (transferData.recipientId) {
+        const recipient = await api.get(`/users/${transferData.recipientId}`);
+        const recipientTransactions = recipient.data.transactions || [];
+
         await api.patch(`/users/${transferData.recipientId}`, {
-          balance: transferData.recipientBalance + transferData.amount,
+          balance: (recipient.data.balance || 0) + transferData.amount,
           transactions: [
-            ...transferData.recipientTransactions,
+            ...recipientTransactions,
             {
               id: Date.now(),
               type: 'RECEBIDO',
@@ -148,6 +148,7 @@ export const AuthProvider = ({ children }) => {
         });
       }
 
+      // Atualiza o usuário no contexto
       const updatedUser = userResponse.data;
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));

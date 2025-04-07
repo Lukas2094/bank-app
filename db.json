@@ -1,24 +1,108 @@
 {
   "users": [
     {
-      "id": "1",
-      "email": "joao@gmail.com",
+      "id": "2",
+      "email": "lucas.sdasilva@hotmail.com",
       "password": "123456",
-      "name": "João Silva",
-      "balance": 5010,
+      "name": "Lucas Silva",
+      "agency": "0001",
+      "account": "12345-6",
+      "balance": 6310,
       "transactions": [
-        {
-          "id": 1,
-          "type": "PIX",
-          "value": -150,
-          "date": "2023-05-10T14:30:00Z",
-          "recipient": "Maria Souza"
-        },
         {
           "id": 1743992502707,
           "type": "DEPOSITO",
           "value": 10,
           "date": "2025-04-07T02:21:42.707Z",
+          "description": "Depósito realizado"
+        },
+        {
+          "id": 1744038884210,
+          "type": "PIX",
+          "value": -200,
+          "date": "2025-04-07T15:14:44.210Z",
+          "recipient": "Lucas Santos da Silva",
+          "description": "PIX para Lucas Santos da Silva",
+          "pixKey": "joao@gmail.com",
+          "pixType": "Email"
+        },
+        {
+          "id": 1744039647736,
+          "type": "PIX",
+          "value": -50,
+          "date": "2025-04-07T15:27:27.736Z",
+          "recipient": "Lucas Silva",
+          "description": "PIX para Lucas Silva",
+          "pixKey": "",
+          "pixType": "QRCode"
+        },
+        {
+          "id": 1744039647763,
+          "type": "RECEBIDO",
+          "value": 50,
+          "date": "2025-04-07T15:27:27.763Z",
+          "sender": "Lucas Silva",
+          "description": "PIX recebido de Lucas Silva"
+        },
+        {
+          "id": 1744040813507,
+          "type": "PIX",
+          "value": -50,
+          "date": "2025-04-07T15:46:53.507Z",
+          "recipient": "Lucas Santos da Silva",
+          "description": "PIX para Lucas Santos da Silva",
+          "pixKey": "lucas.sdasilva@hotmail.com",
+          "pixType": "QRCode"
+        },
+        {
+          "id": 1744040813529,
+          "type": "RECEBIDO",
+          "value": 50,
+          "date": "2025-04-07T15:46:53.529Z",
+          "sender": "Lucas Silva",
+          "description": "PIX recebido de Lucas Silva"
+        },
+        {
+          "id": 1744040966164,
+          "type": "TED",
+          "value": -150,
+          "date": "2025-04-07T15:49:26.164Z",
+          "recipient": "Lucas Santos da Silva",
+          "description": "TED para Lucas Santos da Silva",
+          "bank": "0122",
+          "agency": "44805-2",
+          "account": "1524"
+        },
+        {
+          "id": 1744041020789,
+          "type": "PIX",
+          "value": -1100,
+          "date": "2025-04-07T15:50:20.789Z",
+          "recipient": "Lucas Santos da Silva",
+          "description": "PIX para Lucas Santos da Silva",
+          "pixKey": "841.672.788-04",
+          "pixType": "CPF"
+        },
+        {
+          "id": 1744041020809,
+          "type": "RECEBIDO",
+          "value": 1100,
+          "date": "2025-04-07T15:50:20.809Z",
+          "sender": "Lucas Silva",
+          "description": "PIX recebido de Lucas Silva"
+        },
+        {
+          "id": 1744041081029,
+          "type": "DEPOSITO",
+          "value": 400,
+          "date": "2025-04-07T15:51:21.029Z",
+          "description": "Depósito realizado"
+        },
+        {
+          "id": 1744041107934,
+          "type": "DEPOSITO",
+          "value": 550,
+          "date": "2025-04-07T15:51:47.934Z",
           "description": "Depósito realizado"
         }
       ]

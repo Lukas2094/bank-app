@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { FaTimes, FaMoneyBillWave } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 
 const DepositModal = ({ onClose }) => {
   const [amount, setAmount] = useState('');
@@ -53,12 +53,16 @@ const DepositModal = ({ onClose }) => {
               </div>
               <input
                 type="text"
-                inputMode="decimal"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value.replace(/[^0-9,]/g, '').replace(',', '.'))}
+                inputMode="numeric"
+                value={new Intl.NumberFormat('pt-BR').format(Number(amount || 0))}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/\D/g, '')
+                  setAmount(raw)
+                }}
                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 placeholder="0,00"
               />
+
             </div>
           </div>
 

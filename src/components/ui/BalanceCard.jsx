@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { FaWallet } from 'react-icons/fa';
+import { FaWallet, FaMoneyBillWave, FaExchangeAlt } from 'react-icons/fa';
 import DepositModal from './DepositModal';
 import TransferModal from './TransferModal';
+import { useAuth } from '../../context/AuthContext';
 
 const BalanceCard = ({ balance }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -28,15 +30,15 @@ const BalanceCard = ({ balance }) => {
         <div className="flex space-x-2">
           <button 
             onClick={() => setShowDepositModal(true)}
-            className="px-3 py-1 bg-blue-50 text-blue-600 rounded-md text-sm font-medium hover:bg-blue-100 transition"
+            className="px-3 py-1 bg-blue-50 text-blue-600 rounded-md text-sm font-medium hover:bg-blue-100 transition flex items-center space-x-1 flex-col"
           >
-            Depositar
+            <FaMoneyBillWave className="text-green-500 text-xl" />  Depositar
           </button>
           <button 
             onClick={() => setShowTransferModal(true)}
-            className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition"
+            className="px-3 py-1 bg-orange-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition flex items-center space-x-1 flex-col"
           >
-            Transferir
+            <FaExchangeAlt className="text-white text-xl" /> Transferir
           </button>
         </div>
 
@@ -52,7 +54,7 @@ const BalanceCard = ({ balance }) => {
       <div className="mt-4 pt-4 border-t border-gray-100">
         <div className="flex justify-between text-sm text-gray-500">
           <span>Conta Corrente</span>
-          <span>Agência 0001 • Conta 12345-6</span>
+          <span>Agência {user?.agency} • Conta {user.account}</span>
         </div>
       </div>
     </div>

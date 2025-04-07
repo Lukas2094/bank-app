@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaTimes, FaExchangeAlt } from 'react-icons/fa';
 import { FaPix } from "react-icons/fa6";
+import { QRCodeSVG } from 'qrcode.react';
 
 const TransferModal = ({ onClose }) => {
   const [step, setStep] = useState(1);
@@ -16,7 +17,7 @@ const TransferModal = ({ onClose }) => {
     account: '',
     // PIX fields
     pixKey: '',
-    pixType: 'CPF'
+    pixType: ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -51,7 +52,7 @@ const TransferModal = ({ onClose }) => {
           pixKey: formData.pixKey,
           pixType: formData.pixType
         }),
-        recipientId: 2 // Isso seria dinâmico em uma aplicação real
+        recipientId: 2
       });
 
       onClose();
@@ -63,8 +64,8 @@ const TransferModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg w-full max-w-md">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div className="bg-white rounded-lg w-full max-w-md max-h-full overflow-y-auto">
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="text-lg font-semibold">
             {step === 1 ? 'Tipo de Transferência' : 'Dados da Transferência'}
@@ -130,7 +131,7 @@ const TransferModal = ({ onClose }) => {
                   <input
                     type="text"
                     name="amount"
-                    value={formData.amount}
+                    value={new Intl.NumberFormat('pt-BR').format(Number(formData.amount || 0))}
                     onChange={handleChange}
                     className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     placeholder="0,00"
@@ -212,38 +213,56 @@ const TransferModal = ({ onClose }) => {
                       value={formData.pixType}
                       onChange={handleChange}
                       className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                    >
+                      >
+                      <option value=""></option>
                       <option value="CPF">CPF</option>
                       <option value="Email">E-mail</option>
                       <option value="Phone">Telefone</option>
                       <option value="Random">Chave Aleatória</option>
+                      <option value="QRCode">QRCode</option>
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Chave PIX
-                    </label>
-                    <input
-                      type="text"
-                      name="pixKey"
-                      value={formData.pixKey}
-                      onChange={handleChange}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder={
-                        formData.pixType === 'CPF' ? '000.000.000-00' :
-                        formData.pixType === 'Email' ? 'email@exemplo.com' :
-                        formData.pixType === 'Phone' ? '(00) 00000-0000' :
-                        '00000000-0000-0000-0000-000000000000'
-                      }
-                    />
-                  </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Chave PIX
+                        </label>
+                        <input
+                          type="text"
+                          name="pixKey"
+                          value={formData.pixType == 'QRCode' ? 'dcta478j-196l-03fm-t6gh-4298er7845m2' : formData.pixKey}
+                          onChange={handleChange}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          placeholder={
+                            formData.pixType === 'CPF' ? '000.000.000-00' :
+                              formData.pixType === 'Email' ? 'email@exemplo.com' :
+                                formData.pixType === 'Phone' ? '(00) 00000-0000' :
+                                  '00000000-0000-0000-0000-000000000000' 
+                          }
+                        />
+                      </div>
+
+                    {transferType === 'PIX' && formData.recipientName && formData.pixKey && formData.pixType == 'QRCode' && (
+                      <div className="inline-flex w-full items-center justify-center bg-white p-2 border rounded transition-all duration-300 ease-in-out">
+                        <QRCodeSVG
+                          value={JSON.stringify({
+                            pixKey: formData.pixType == 'QRCode' ? 'dcta478j-196l-03fm-t6gh-4298er7845m2' : formData.pixKey,
+                            pixType: formData.pixType,
+                            amount: formData.amount,
+                            name: formData.recipientName
+                          })}
+                          size={180}
+                        />
+                        {}
+                      </div>
+                    )}
                 </>
               )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Senha Transacional
+                    Senha Transacional
+                    (senha para transferências Fictícias: 1234)
                 </label>
                 <input
                   type="password"
@@ -265,7 +284,7 @@ const TransferModal = ({ onClose }) => {
                 </button>
                 <button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || !formData.amount || !formData.recipientName}
                   className={`px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 ${
                     isLoading ? 'opacity-70 cursor-not-allowed' : ''
                   }`}
