@@ -112,6 +112,24 @@
           "date": "2025-04-07T18:59:32.065Z",
           "sender": "Lucas Santos",
           "description": "PIX recebido de Lucas Santos"
+        },
+        {
+          "id": 1744054840864,
+          "type": "PIX",
+          "value": -2000,
+          "date": "2025-04-07T19:40:40.864Z",
+          "recipient": "Lucas Santos da Silva",
+          "description": "PIX para Lucas Santos da Silva",
+          "pixKey": "joao@gmail.com",
+          "pixType": "Email"
+        },
+        {
+          "id": 1744054840889,
+          "type": "RECEBIDO",
+          "value": 2000,
+          "date": "2025-04-07T19:40:40.889Z",
+          "sender": "Lucas Silva",
+          "description": "PIX recebido de Lucas Silva"
         }
       ]
     }
