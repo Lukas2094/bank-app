@@ -98,8 +98,7 @@ const TransactionHistory = ({ transactions = [] }) => {
               const { icon, bgColor } = getTransactionIcon(transaction.type, transaction.value);
               const isNegative = transaction.value < 0;
               const absValue = Math.abs(transaction.value);
-              console.log(transaction);
-              
+  
               return (
                 <li key={transaction.id} className="p-4 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
