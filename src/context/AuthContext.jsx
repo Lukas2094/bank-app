@@ -17,6 +17,15 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); 
   }, []);
 
+  const allUsers = async () => {
+    try {
+      const response = await api.get('/users');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   const login = async (email, password) => {
     try {
       const response = await api.get(`/users?email=${email}&password=${password}`);
@@ -93,7 +102,7 @@ export const AuthProvider = ({ children }) => {
           ...user.transactions,
           {
             id: Date.now(),
-            type: 'DEPOSITO',
+            type: `DEPOSITO ${type.toUpperCase()}`,
             value: amount,
             date: new Date().toISOString(),
             description: type === 'pix' ? 'Depósito via PIX' : 'Depósito via Boleto',
@@ -178,6 +187,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ 
       user, 
       loading,
+      allUsers,
       login, 
       register, 
       logout,

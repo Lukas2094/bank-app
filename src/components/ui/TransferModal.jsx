@@ -4,7 +4,7 @@ import { FaTimes, FaExchangeAlt } from 'react-icons/fa';
 import { FaPix } from "react-icons/fa6";
 import { QRCodeSVG } from 'qrcode.react';
 
-const TransferModal = ({ onClose }) => {
+const TransferModal = ({ onClose , users}) => {
   const [step, setStep] = useState(1);
   const [transferType, setTransferType] = useState('PIX');
   const [formData, setFormData] = useState({
@@ -39,6 +39,9 @@ const TransferModal = ({ onClose }) => {
       if (amount > user.balance) throw new Error('Saldo insuficiente');
       if (formData.transactionPassword !== '1234') throw new Error('Senha transacional incorreta');
 
+      const recipientUser = users.find(u => u.id !== user.id);
+      if (!recipientUser) throw new Error('Nenhum destinatário válido encontrado');
+ 
       await transfer({
         type: transferType,
         amount,
@@ -52,7 +55,7 @@ const TransferModal = ({ onClose }) => {
           pixKey: formData.pixKey,
           pixType: formData.pixType
         }),
-        recipientId: 2
+        recipientId: recipientUser.id
       });
 
       onClose();

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaWallet, FaMoneyBillWave, FaExchangeAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import DepositModal from './DepositModal';
 import TransferModal from './TransferModal';
@@ -8,7 +8,22 @@ const BalanceCard = ({ balance }) => {
   const [showDepositModal, setShowDepositModal] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [isBlurred, setIsBlurred] = useState(true);
-  const { user } = useAuth();
+  const { user , allUsers } = useAuth();
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await allUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -58,7 +73,7 @@ const BalanceCard = ({ balance }) => {
         )}
 
         {showTransferModal && (
-          <TransferModal onClose={() => setShowTransferModal(false)} />
+          <TransferModal onClose={() => setShowTransferModal(false)} users={users} />
         )}
       </div>
 
